@@ -1,0 +1,12 @@
+.full_width_button{
+    display: block;
+    width: 100%;
+}
+.content{
+    display: none;
+    overflow: hidden;
+}
+.buttonGroup{
+    display: block;
+    width: 100%;
+}
