@@ -25,7 +25,7 @@ function NoteList(notes = []) {
     /**
      * @param {Note} note
      */
-    this.addNote = function (note) {
+    this.add = function (note) {
         note.noteList = this;
         note.createdAt = new Date()
         notes.push(note);
@@ -76,25 +76,26 @@ function NoteList(notes = []) {
  * @param {Store} store
  * @param {NoteList} noteList
  * @param {HTMLElement} $element
- * * @returns HTMLElement
  */
 function mount(store, noteList, $element)
 {
-
-
-
-    const json = store.getItem('notes');
+    const json =  store.getItem('notes');
 
     if ( json )
     {
         noteList.fromJSON(json);
     }
 
+    $element.querySelectorAll('.note').forEach(note => {
+        note.remove();
+    });
+
     for (let i in noteList.notes()) {
         /**
          * @type {Note}
          */
         const note = noteList.notes()[i];
+
         NoteComponent.mount(note, $element)
     }
 
@@ -102,7 +103,7 @@ function mount(store, noteList, $element)
         element.addEventListener('click', _ => {
 
             store.setItem('notes',noteList.toJSON())
-            render(store, noteList, $element)
+            mount(store, noteList, $element)
         });
     });
 
@@ -110,31 +111,9 @@ function mount(store, noteList, $element)
         element.addEventListener('click', _ => {
 
             store.setItem('notes',noteList.toJSON())
-            render(store, noteList, $element)
+            mount(store, noteList, $element)
         });
     });
-
-    document.getElementById('createButton').addEventListener('click', () => {
-        let note = new NoteComponent.Note(
-            document.getElementById('inputTitle').value,
-            document.getElementById('inputText').value
-        )
-        note.addTo(noteList)
-
-        store.setItem('notes',noteList.toJSON())
-        render(store, noteList, $element)
-    })
-}
-
-/**
- * @param {Store} store
- * @param noteList
- * @param $element
- */
-function render(store, noteList, $element)
-{
-    $element.innerHTML = '';
-    mount(store, noteList, $element);
 }
 
 const NoteListComponent = {
