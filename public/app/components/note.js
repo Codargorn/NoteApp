@@ -21,8 +21,8 @@ class Note {
 // language=HTML
 const template = `
     <div class="row mb-2 mt-2 note">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
             <div class="input-group  mb-1">
                 <button class="fas fa-angle-down align-bottom input-group-text collapsible collapsibleButton"></button>
                 <input type="text" class="form-control input-group-text inputField" placeholder="Title">
@@ -31,14 +31,14 @@ const template = `
                         class="far fa-trash-alt btn btn-danger border border-primary delete-note"></button>
             </div>
             <div class="row">
-                <div class="col"><textarea class="form-control mb-2 textarea" placeholder="type your note here" rows="10"
+                <div class="col-sm"><textarea class="form-control mb-2 textarea" placeholder="type your note here" rows="10"
                                            style="display: none;"></textarea>
                     <div class="html-view p-2" style="display: none;">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-2"></div>
+        <div class="col-sm-2"></div>
     </div>`;
 
 /**

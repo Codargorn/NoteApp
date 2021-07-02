@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-<div class="app">
+
     <div class="container">
 
 
@@ -19,18 +19,18 @@
     <div class="editor"></div>
     <div class="notes"></div>
     </div>
-</div>
+
 <script type="module">
     import NoteListComponent from "./app/components/notelist.js";
     import Store from "./app/store.js";
-    import NoteComponent from "./app/components/note.js";
     import NoteEditorComponent from "./app/components/noteeditor.js";
+    import Proxy from "./app/proxy.js";
 
 
     const $notes = document.querySelector('.notes');
     const $editor = document.querySelector('.editor');
 
-
+    const proxy = new Proxy('serviceworker.js');
     const store = new Store();
     const list = new NoteListComponent.NoteList();
 

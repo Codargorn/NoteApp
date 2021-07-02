@@ -4,7 +4,7 @@ import NoteComponent from "./note.js";
 
 const template = `
            <div class="row">
-            <div class="col-8 offset-2">
+            <div class="col-sm-8 offset-2">
                 <div class="row mb-2 mt-2 ">
                     <div class="col-8">
                         <input type="text" class="form-control" placeholder="Title" id="note-title">
@@ -16,12 +16,12 @@ const template = `
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm">
                         <textarea class="form-control" placeholder="type your note here" id="note-text"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="col-2"></div>
+            <div class="col-sm-2"></div>
                 <div class="col">
                     <hr style="margin: 20px auto 10px;  max-width: 66%">
                 </div>

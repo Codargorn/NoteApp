@@ -1,6 +1,5 @@
 function Store()
 {
-
     const store = window.localStorage;
     if ( !store){
         throw new Error('localStorage not available')
