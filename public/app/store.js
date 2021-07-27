@@ -1,70 +1,44 @@
-function Store()
-{
+function Store() {
     const store = window.localStorage;
-    if ( !store){
+    if (!store) {
         throw new Error('localStorage not available')
     }
 
-    let pushAvailable = false;
-
-
-    this.push = function (key, value)
-    {
-        fetch(`/api/${key}.php`, {
+    this.push = async function (key, value) {
+        await fetch(`/api/${key}.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: value
-        }).then(_ => {
-            pushAvailable = true
-        })
-            .then(response => response.json())
-            .catch(_ => {
-           pushAvailable = false;
         });
     }
 
+    this.setItem = async function (key, value) {
+        await this.push(key, value);
 
-    this.setItem = function (key, value)
-    {
         store.setItem(key, value)
-
-       this.push(key, value);
     }
 
-    this.getItem = function (key)
-    {
-
-        try
-        {
-            fetch(`/api/${key}.json`)
-                .then(response => {
-                    if ( response.status === 200)
-                    {
-                        return response.text();
+    this.getItem = async function (key) {
+        try {
+            await fetch(`/api/${key}.php`)
+                .then( response => {
+                    if (response.status === 200) {
+                        return  response.text();
                     }
-                    throw new  Error('test');
+                    throw new Error('could not fetch data');
                 })
                 .then(json => {
-                    if ( pushAvailable === false)
-                    {
-                        return;
-                    }
-
                     store.setItem(key, json);
                 });
 
-        }
-        catch (Error)
-        {
+        } catch (Error) {
         }
 
         return store.getItem(key);
     }
 }
-
-
 
 
 export default Store;

@@ -1,5 +1,4 @@
 import NoteComponent from "./note.js";
-import note from "./note.js";
 
 /**
  *
@@ -8,8 +7,7 @@ import note from "./note.js";
  */
 function NoteList(notes = []) {
 
-    for(let i=0; i < notes.length; i++)
-    {
+    for (let i = 0; i < notes.length; i++) {
         notes[i].noteList = this;
     }
 
@@ -31,61 +29,49 @@ function NoteList(notes = []) {
         notes.push(note);
     }
 
-    this.toJSON = function (){
+    this.toJSON = function () {
         const list = [];
-        for(let i=0; i < notes.length; i++)
-        {
-            list.push( {
+        for (let i = 0; i < notes.length; i++) {
+            list.push({
                 title: notes[i].title,
                 text: notes[i].text,
-                createdAt: notes[i].createdAt.toString()
+                createdAt: notes[i].createdAt.toISOString()
             });
         }
 
         return JSON.stringify(list);
     }
 
-    this.fromJSON = function (json)
-    {
+    this.fromJSON = function (json) {
         notes = [];
 
         const list = JSON.parse(json);
-        for(let i=0; i < list.length; i++)
-        {
+        for (let i = 0; i < list.length; i++) {
             const serializedNote = list[i];
             const note = new NoteComponent.Note(
                 serializedNote.title,
                 serializedNote.text
             );
-            note.createdAt =  new Date(serializedNote.createdAt)
+            note.createdAt = new Date(serializedNote.createdAt)
             note.noteList = this;
 
-           notes.push(note);
+            notes.push(note);
         }
 
         return this;
     }
 
-    this.notes=function ()
-    {
+    this.notes = function () {
         return notes;
     }
 }
 
 /**
- * @param {Store} store
- * @param {NoteList} noteList
  * @param {HTMLElement} $element
+ * @param {NoteList} noteList
+ * @param {Store} store
  */
-function mount(store, noteList, $element)
-{
-    const json =  store.getItem('notes');
-
-    if ( json )
-    {
-        noteList.fromJSON(json);
-    }
-
+function mount($element, noteList, store) {
     $element.querySelectorAll('.note').forEach(note => {
         note.remove();
     });
@@ -96,22 +82,20 @@ function mount(store, noteList, $element)
          */
         const note = noteList.notes()[i];
 
-        NoteComponent.mount(note, $element)
+        NoteComponent.mount($element, note)
     }
 
     $element.querySelectorAll('.change-note').forEach(element => {
-        element.addEventListener('click', _ => {
-
-            store.setItem('notes',noteList.toJSON())
-            mount(store, noteList, $element)
+        element.addEventListener('click', async _ => {
+            await store.setItem('notes', noteList.toJSON())
+            mount($element, noteList, store)
         });
     });
 
     $element.querySelectorAll('.delete-note').forEach(element => {
-        element.addEventListener('click', _ => {
-
-            store.setItem('notes',noteList.toJSON())
-            mount(store, noteList, $element)
+        element.addEventListener('click', async _ => {
+            await store.setItem('notes', noteList.toJSON())
+            mount($element, noteList, store)
         });
     });
 }

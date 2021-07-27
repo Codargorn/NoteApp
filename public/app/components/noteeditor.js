@@ -29,26 +29,25 @@ const template = `
         `;
 
 /**
- * @param {NoteList} noteList
  * @param {HTMLElement} $element
+ * @param {NoteList} noteList
  * @param {Store} store
  */
-function mount(noteList, $element, store){
+function mount($element, noteList, store) {
 
-    const $editor =   createElementFromHTML(template);
+    const $editor = createElementFromHTML(template);
 
-    $editor.querySelector('#create-note').addEventListener('click',_ => {
+    $editor.querySelector('#create-note').addEventListener('click', async _ => {
         let note = new NoteComponent.Note(
             $editor.querySelector('#note-title').value,
             $editor.querySelector('#note-text').value
         )
         note.addTo(noteList)
 
-        store.setItem('notes', noteList.toJSON())
+        await store.setItem('notes', noteList.toJSON())
         const $notes = document.querySelector('.notes');
-        NoteListComponent.mount(store, noteList, $notes)
+        NoteListComponent.mount($notes, noteList, store)
     })
-
 
 
     $element.appendChild($editor);

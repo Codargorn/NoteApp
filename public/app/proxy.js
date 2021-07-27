@@ -1,7 +1,6 @@
-function Proxy(url)
-{
+function Proxy(url) {
     const proxy = window.navigator.serviceWorker;
-    if ( !proxy){
+    if (!proxy) {
         throw new Error('serviceWorker not available')
     }
 

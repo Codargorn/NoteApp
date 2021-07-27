@@ -11,10 +11,10 @@ use Fig\Http\Message\StatusCodeInterface;
  */
 final class HttpResponse
 {
-    /** @var int  */
+    /** @var int */
     private $statusCode;
 
-    /** @var array<string, string>  */
+    /** @var array<string, string> */
     private $headers;
 
     /** @var string */

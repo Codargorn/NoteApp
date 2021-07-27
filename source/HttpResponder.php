@@ -8,15 +8,14 @@ namespace NotesApi;
  */
 final class HttpResponder
 {
-    public function respond(HttpResponse $response):void
+    public function respond(HttpResponse $response): void
     {
         header(
             "HTTP/1.1 {$response->getStatusCode()} "
-            .StatusCodeMessages::getHttpStatusMessage($response->getStatusCode())
+            . StatusCodeMessages::getHttpStatusMessage($response->getStatusCode())
         );
 
-        foreach ($response->getHeaders() as $name => $value)
-        {
+        foreach ($response->getHeaders() as $name => $value) {
             header("{$name}: $value");
         }
 

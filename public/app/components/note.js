@@ -31,8 +31,9 @@ const template = `
                         class="far fa-trash-alt btn btn-danger border border-primary delete-note"></button>
             </div>
             <div class="row">
-                <div class="col-sm"><textarea class="form-control mb-2 textarea" placeholder="type your note here" rows="10"
-                                           style="display: none;"></textarea>
+                <div class="col-sm"><textarea class="form-control mb-2 textarea" placeholder="type your note here"
+                                              rows="10"
+                                              style="display: none;"></textarea>
                     <div class="html-view p-2" style="display: none;">
                     </div>
                 </div>
@@ -42,11 +43,10 @@ const template = `
     </div>`;
 
 /**
- *
- * @param {Note} note
  * @param {HTMLElement} $element
+ * @param {Note} note
  */
-function mount(note, $element) {
+function mount($element, note) {
 
     const $note = createElementFromHTML(template);
 

@@ -11,38 +11,17 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-
-    <div class="container">
-
-
-
-    <div class="editor"></div>
-    <div class="notes"></div>
+<div class="app container">
+    <div class="content" style="display: none">
+        <button class="signout btn btn-dark" style="top: 5px; right: 20px; position: absolute">Log out</button>
+        <div class="editor"></div>
+        <div class="notes"></div>
     </div>
-
+</div>
 <script type="module">
-    import NoteListComponent from "./app/components/notelist.js";
-    import Store from "./app/store.js";
-    import NoteEditorComponent from "./app/components/noteeditor.js";
-    import Proxy from "./app/proxy.js";
+    import App from "./app.js";
 
-
-    const $notes = document.querySelector('.notes');
-    const $editor = document.querySelector('.editor');
-
-    const proxy = new Proxy('serviceworker.js');
-    const store = new Store();
-    const list = new NoteListComponent.NoteList();
-
-    NoteEditorComponent.mount(list, $editor, store)
-    NoteListComponent.mount(store, list, $notes)
-
-    window.setInterval(
-        function () {
-            store.push('notes', list.toJSON())
-        },
-        5000
-    )
+    new App(document.querySelector('.app'));
 </script>
 </body>
 </html>

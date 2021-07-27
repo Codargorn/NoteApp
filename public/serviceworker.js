@@ -11,9 +11,12 @@ self.addEventListener('install', event => {
             .then(cache => cache.addAll([
                 'https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.0.1/dist/css/bootstrap-night.min.css',
                 'https://cdn.jsdelivr.net/npm/marked/marked.min.js',
+                '/app.js',
                 '/app/html.js',
                 '/app/proxy.js',
                 '/app/store.js',
+                '/app/components/login.js',
+                '/app/components/logout.js',
                 '/app/components/note.js',
                 '/app/components/noteeditor.js',
                 '/app/components/notelist.js',
